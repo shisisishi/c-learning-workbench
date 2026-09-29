@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0001 · 让程序跑起来 — C++ 从零到作业</title>
+<link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+
+<p class="lesson-meta">C++ 从零到作业 · 第 0001 课 · 2026-09-18</p>
+
+<h1>让程序跑起来</h1>
+<p class="subtitle">你的第一个 C++ 程序：从三行代码，到屏幕上的字</p>
+
+<div class="win">
+  <span class="win-title">本课的胜利条件</span>
+  在 Dev-C++ 里按下 <strong>F11</strong>，屏幕上打印出<strong>你自己写的一句话</strong>。
+  就这一件事，做完本课就通关。大约 15 分钟。
+</div>
+
+<h2>为什么先学这个，而不是先学语法</h2>
+
+<p>
+你的作业最后要交一个 <code>.cpp</code> 文件，但老师真正检查的是：<strong>它能不能编译、能不能跑出正确答案</strong>。
+所以在你学会任何语法之前，必须先打通这条路：
+</p>
+
+<pre><code>你写的 hello.cpp  ---[ 编译 ]---&gt;  hello.exe  ---[ 运行 ]---&gt;  屏幕上出现一行字</code></pre>
+
+<p>
+这条路上的每一个环节你都要亲手走一遍。走通之后，你写下的每一行代码都能立刻看到结果——
+<strong>这条"改了就能看到"的回路，才是让你学会 C++ 的东西</strong>。没有它，写代码就是盲写。
+</p>
+
+<h2>先搞懂：C++ 程序是怎么变成"能跑的东西"的</h2>
+
+<p>
+你写的是人能读的文本，电脑只认 0 和 1。中间需要一个翻译官，叫<strong>编译器</strong>。
+</p>
+
+<div class="sidenote">
+Dev-C++ <em>不是</em>编译器。它是把「编辑器 + 编译器 + 按钮」打包在一起的壳，叫 IDE。
+真正干活的编译器在 Dev-C++ 安装目录下的 <code>MinGW64\bin\g++.exe</code>，
+版本是 TDM-GCC 4.9.2。知道这一点有用：以后报错信息里出现的东西，都是这个程序在说话。
+</div>
+
+<p>所以一次"跑程序"其实分成两件事，Dev-C++ 给了它们两个不同的键：</p>
+
+<table>
+  <thead>
+    <tr><th>阶段</th><th>做什么</th><th>快捷键</th><th>产物</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>编译</td><td>把你的 <code>.cpp</code> 翻译成可执行文件</td><td><kbd>F9</kbd></td><td><code>hello.exe</code></td></tr>
+    <tr><td>运行</td><td>执行那个 <code>.exe</code></td><td><kbd>F10</kbd></td><td>屏幕上的字</td></tr>
+    <tr><td>一步到位</td><td>编译 + 运行，连着做</td><td><kbd>F11</kbd></td><td>屏幕上的字</td></tr>
+  </tbody>
+</table>
+
+<p class="sidenote">
+这三个键不是我从网上抄的，是从你这个 Dev-C++ 版本自带的帮助文件里读出来的：
+Dev-C++ 自带帮助里的 <code>Help\Subjects\Compiling.htm</code>。可以在本机安装目录里打开核对。
+</p>
+
+<h2>程序的三段骨架</h2>
+
+<p>所有 C++ 程序都有这个骨架。现在不用理解每一处的细节，先认识它们各自在干什么：</p>
+
+<pre><code>#include &lt;iostream&gt;          <span class="hl">// ① 把"输入输出工具箱"拿进来</span>
+
+int main() {                <span class="hl">// ② 程序的入口，从这里开始执行</span>
+    std::cout &lt;&lt; "Hello, C++!" &lt;&lt; std::endl;   <span class="hl">// ③ 往屏幕上打印一句话</span>
+    return 0;               <span class="hl">// ④ 告诉系统：我正常结束了</span>
+}</code></pre>
+
+<ul>
+  <li><strong>① <code>#include &lt;iostream&gt;</code></strong> —— <code>iostream</code> 是 input-output-stream（输入输出流）的缩写。
+      这行是"借用工具"，不写它，后面的 <code>cout</code> 就不认识。</li>
+  <li><strong>② <code>int main()</code></strong> —— 程序的<strong>入口</strong>。系统运行你的 <code>.exe</code> 时，
+      第一件事就是找名叫 <code>main</code> 的函数，从它的第一行开始往下执行。没有 <code>main</code>，程序无法启动。</li>
+  <li><strong>③ <code>std::cout &lt;&lt; "..."</code></strong> —— <code>cout</code> 是 character output（字符输出）。
+      把 <code>&lt;&lt;</code> 想象成一个漏斗：右边的东西顺着漏斗倒进 <code>cout</code>，最后倒到屏幕上。</li>
+  <li><strong>④ <code>return 0;</code></strong> —— 向系统报告"我正常结束了"。<code>0</code> 表示没有错误。</li>
+</ul>
+
+<div class="note">
+  <span class="note-title">关于 <code>std::</code> 这个前缀</span>
+  <code>std::</code> 的意思是"标准库里的"。很多教材会写 <code>using namespace std;</code> 来把这三个字母全省掉，
+  效果完全一样。你在这门课里可以照着老师/课件的写法来，两种都能编译通过。
+  本工作站默认写 <code>std::</code>，因为你这个 Dev-C++ 自带的模板就是这么写的。
+</div>
+
+<div class="note">
+  <span class="note-title">关于 <code>endl</code> 和 <code>\n</code></span>
+  两个都是"换行"。<code>std::endl</code> 除了换行还会立刻把内容推出去（这一课你用不到这个区别）。
+  现在你只要记住：<strong>想让下一句话另起一行，就写 <code>std::endl</code></strong>。
+  <br>注意是<strong>字母 l</strong>，不是数字 1——这是新手最经典的错。
+</div>
+
+<h2>动手：八步</h2>
+
+<p>下面每步做完点一下该行，会打勾。第 8 步才是重点，别在第 7 步就停。</p>
+
+<ol class="steps checkable">
+  <li>双击桌面上的 <strong>Dev-C++</strong> 图标打开它。
+      你的界面是<strong>英文</strong>的，所以下面菜单名我全部保留英文。</li>
+
+  <li>新建源文件：菜单 <code>File → New → Source File</code>，或者直接按 <kbd>Ctrl</kbd>+<kbd>N</kbd>。
+      会出现一个空白编辑区。</li>
+
+  <li>把下面这段<strong>一个字符一个字符地敲进去</strong>：
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    std::cout &lt;&lt; "Hello, C++!" &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+      <em>别复制粘贴。</em>手敲一遍，你会顺便记住分号、引号、尖括号各自长什么样——
+      这些细节以后全是错误来源。</li>
+
+  <li><strong>保存（这一步最容易翻车）</strong>：<code>File → Save As</code>（或 <kbd>Ctrl</kbd>+<kbd>S</kbd>）。
+      文件名填 <code>hello.cpp</code>，<code>Save as type</code> 选 <code>C++ source files (*.cpp)</code>。
+      <div class="trap" style="margin-top:.7rem;margin-bottom:0">
+        <span class="trap-title">后缀必须是 .cpp</span>
+        Dev-C++ 是<strong>靠文件后缀</strong>决定用 C 还是 C++ 编译器来编译你的代码的
+        （这是它自带帮助里写的）。存成 <code>hello.c</code>，它就当 C 语言编译，你的 C++ 代码会报一堆错。
+      </div>
+      建议存到单独的作业文件夹里，不要和课件混在一起。</li>
+
+  <li>编译：按 <kbd>F9</kbd>。下方 <code>Compiler</code> 标签页会滚出一堆字，
+      最后一行必须是 <code>Errors: 0</code>（0 个错误）。
+      <br>不是 0 就直接跳到最后的<a href="#pitfalls">踩坑清单</a>。</li>
+
+  <li>运行：按 <kbd>F11</kbd>（编译并运行，一步到位）。会弹出一个黑色窗口。</li>
+
+  <li>看到 <code>Hello, C++!</code>。
+      <div class="note" style="margin-top:.7rem;margin-bottom:0">
+        <span class="note-title">为什么窗口没有一闪而过</span>
+        因为 Dev-C++ 自带一个 <code>ConsolePauser.exe</code> 帮你把窗口按住了。
+        所以<strong>你不需要写 <code>system("pause");</code></strong>——那是老教程里的做法，
+        连 LearnCpp 都明确建议避免它。<strong>到这里你已经跑通了一个 C++ 程序。</strong>
+      </div></li>
+
+  <li><strong>改一个字，再按一次 F11。</strong>把 <code>"Hello, C++!"</code> 里的内容改成你自己的名字，
+      重新跑一遍，看输出变了没有。
+      <div class="win" style="margin-top:.7rem;margin-bottom:0">
+        <span class="win-title">这一步才是本课的核心</span>
+        你刚刚建立了<strong>"改代码 → 立刻看到变化"</strong>的反馈回路。
+        接下来每一个知识点，你都可以用这条回路自己验证一遍——这比听讲有效得多。
+      </div></li>
+</ol>
+
+<h2>检验一下</h2>
+
+<p>先别往上翻。凭刚才的理解答，答错比答对更有价值——答错说明这里正是需要再想一遍的地方。</p>
+
+<p class="lesson-progress"></p>
+
+<div class="quiz">
+  <p class="quiz-q"><span class="qnum">Q1</span><code>int main()</code> 在整个程序里扮演什么角色？</p>
+  <div class="quiz-opts">
+    <button class="quiz-opt" data-correct="true">程序从此处开始执行</button>
+    <button class="quiz-opt">程序保存到哪个文件</button>
+    <button class="quiz-opt">编译器安装在哪个盘</button>
+    <button class="quiz-opt">屏幕上打印哪行文字</button>
+  </div>
+  <p class="quiz-feedback"
+     data-right="对。main 是程序的入口，系统运行 .exe 时先找它，从第一行往下执行。"
+     data-wrong="不对。它是程序的入口——系统运行 .exe 时第一件事就是找名叫 main 的函数。"></p>
+</div>
+
+<div class="quiz">
+  <p class="quiz-q"><span class="qnum">Q2</span><code>std::cout</code> 的作用是什么？</p>
+  <div class="quiz-opts">
+    <button class="quiz-opt" data-correct="true">把内容输出到屏幕上</button>
+    <button class="quiz-opt">把键盘输入读进变量</button>
+    <button class="quiz-opt">把源代码翻译成程序</button>
+    <button class="quiz-opt">把运行结果存进文件</button>
+  </div>
+  <p class="quiz-feedback"
+     data-right="对。cout = character output，把右边的内容顺着 << 倒到屏幕上。"
+     data-wrong="不对。cout 是 character output，负责把内容送到屏幕上；读键盘输入的是下一课的 cin。"></p>
+</div>
+
+<div class="quiz">
+  <p class="quiz-q"><span class="qnum">Q3</span>这句里的 <code>std::endl</code> 起了什么作用？</p>
+  <div class="quiz-opts">
+    <button class="quiz-opt" data-correct="true">让光标换到下一行开头</button>
+    <button class="quiz-opt">让程序暂停等待按键盘</button>
+    <button class="quiz-opt">让字符打印在屏幕中央</button>
+    <button class="quiz-opt">让编译器检查代码错误</button>
+  </div>
+  <p class="quiz-feedback"
+     data-right="对。endl 就是「换行」，作用等同于 \n。"
+     data-wrong="不对，endl 只负责换行（等价于 \n）。让程序暂停等待按键的是 Dev-C++ 自带的 ConsolePauser。"></p>
+</div>
+
+<h2>合上这一页，凭记忆写一遍</h2>
+
+<p>这是本课唯一需要"背"的东西，但它不是背文字，是背<strong>结构</strong>。
+拿起笔，或者在 Dev-C++ 里凭记忆敲一遍——不要看上面。</p>
+
+<div class="recall">
+  <p class="recall-prompt">
+    写出一个能打印 <code>Hello</code> 的完整 C++ 程序。写不出来就多试 30 秒，实在写不出再揭开。
+  </p>
+  <button class="recall-toggle" data-label="写好了，对照答案">写好了，对照答案</button>
+  <div class="recall-body">
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    std::cout &lt;&lt; "Hello" &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+    <p style="margin-bottom:0">
+      对不上没关系，重点是<strong>想不起来的那一处</strong>——那就是你下次要留意的地方。
+      四段结构记住了吗：借工具箱 → 找入口 → 输出 → 报告结束。
+    </p>
+  </div>
+</div>
+
+<h2 id="pitfalls">踩坑清单</h2>
+
+<p>下面每一条都是新手真的会撞上的。撞上了不要慌，回来对照：</p>
+
+<table>
+  <thead>
+    <tr><th>症状</th><th>原因</th><th>怎么改</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>报错里说 <code>cout was not declared</code></td>
+      <td>忘了写 <code>#include &lt;iostream&gt;</code>，或者漏了 <code>std::</code></td>
+      <td>补上这两处其中之一</td>
+    </tr>
+    <tr>
+      <td>报错说 <code>end1 was not declared</code></td>
+      <td>把 <code>endl</code> 的<strong>字母 l</strong> 打成了<strong>数字 1</strong></td>
+      <td>改成 <code>endl</code></td>
+    </tr>
+    <tr>
+      <td>报错提到 <code>_main</code> 找不到</td>
+      <td>没有名为 <code>main</code> 的函数，或拼错了</td>
+      <td>检查 <code>int main()</code> 有没有写、有没有拼错</td>
+    </tr>
+    <tr>
+      <td>报错说 <code>cannot open output file ... .exe</code></td>
+      <td>上一次运行的黑窗口还开着，<code>.exe</code> 被占用</td>
+      <td>关掉那个黑窗口，再编译</td>
+    </tr>
+    <tr>
+      <td>编译报了一大堆看不懂的错，指向你的中文</td>
+      <td>源文件编码问题。Dev-C++ 5.11 默认按 ANSI(GBK) 存文件</td>
+      <td>本课先只用英文。中文输出单独处理，我们后面专门讲</td>
+    </tr>
+    <tr>
+      <td>黑窗口一闪就没了</td>
+      <td>不正常。可能是杀毒软件拦截，或 <code>ConsolePauser.exe</code> 被杀掉了</td>
+      <td>告诉我，我帮你查</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="trap">
+  <span class="trap-title">一个坏习惯，现在就别养成</span>
+  网上（尤其 CSDN 上的老帖子）会教你加 <code>system("pause");</code> 来解决窗口闪退。
+  <strong>不要用。</strong>它的毛病包括：依赖 Windows、在别的机器上行为不一致、拖慢程序。
+  你的 Dev-C++ 本来就自带 ConsolePauser 解决这个问题，所以这个补丁根本不需要。
+</div>
+
+<h2>本课的一手材料</h2>
+
+<p>
+如果本课有哪句话你不放心，去读官方的原始材料。这一课的对应读物是：
+</p>
+
+<ul>
+  <li>
+    <a href="https://www.learncpp.com/cpp-tutorial/compiling-your-first-program/" target="_blank" rel="noopener">LearnCpp <strong>0.7 — Compiling your first program</strong></a>
+    —— 讲"程序怎么从源码变成能跑的东西"，讲得比我上面那段更细。英文，但用词很浅。
+  </li>
+  <li>
+    <a href="https://www.learncpp.com/cpp-tutorial/a-few-common-cpp-problems/" target="_blank" rel="noopener">LearnCpp <strong>0.8 — A few common C++ problems</strong></a>
+    —— 报错时的第一站。建议现在就把这个链接加到收藏夹。
+  </li>
+</ul>
+
+<h2>有问题就问我</h2>
+
+<div class="ask-teacher">
+  <strong>我是你的老师，卡住就喊我，不用自己硬扛。</strong><br>
+  特别欢迎这几类问题：
+  <ul style="margin-top:.5rem;margin-bottom:0">
+    <li><strong>「我这里报错了」</strong>——把<strong>完整的报错文字</strong>发我（直接复制，别截图，别只发最后一行），我来判断。</li>
+    <li><strong>「这句为什么这样写？」</strong>——任何一行，包括 <code>std::</code>、<code>&lt;&lt;</code>、分号。</li>
+    <li><strong>「我想要它输出别的，该怎么改？」</strong>——最好的学习方式，你出题我来陪你试。</li>
+    <li><strong>「太快了/太慢了」</strong>——节奏不对直接讲，我会调。</li>
+  </ul>
+</div>
+
+<div class="lesson-footer">
+  <h2>速查与下一课</h2>
+  <p>
+    配套速查卡（建议打印出来贴在显示器边上）：
+    <a href="../reference/devcpp-workflow.html">Dev-C++ 编译运行速查卡</a>
+  </p>
+
+  <h2>下一课：让程序听你说话</h2>
+  <p>
+    你已经能让程序"说话"了。下一课让它<strong>听你说话</strong>：
+    用 <code>std::cin</code> 读你从键盘敲进去的字符，存进一个 <code>char</code> 变量，再打印出来。
+    那是通往你那份「字母大小写转换」作业的第一个台阶。
+  </p>
+  <p style="color:var(--ink-faint);font-size:.86rem">
+    课程路线：<strong>0001 让程序跑起来</strong>（本课）→ 0002 变量与输入 → 0003 字符其实是数字（← 解出你的作业）
+  </p>
+
+  <div class="nav">
+    <span>← 这是第一课</span>
+    <span>下一课：0002 变量与输入</span>
+  </div>
+</div>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>速查卡 · Dev-C++ 编译运行 — C++ 从零到作业</title>
+<link rel="stylesheet" href="../assets/course.css">
+<style>
+  body { max-width: 46rem; }
+  .cheat { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
+  @media (max-width: 720px) { .cheat { grid-template-columns: 1fr; } }
+  .cheat h3 { margin-top: 1.2rem; }
+  .cheat ul { padding-left: 1.1rem; }
+  .cheat li { margin-bottom: .3rem; }
+  kbd {
+    display: inline-block;
+    border: 1px solid #b9b2a4;
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    background: #faf8f3;
+    padding: 0 .32em;
+    font-size: .82em;
+    font-family: var(--font-mono);
+  }
+  .path { font-family: var(--font-mono); font-size: .8rem; word-break: break-all; }
+</style>
+</head>
+<body>
+
+<p class="lesson-meta">速查卡 · 配套 <a href="../lessons/0001-first-program.html">第 0001 课</a></p>
+<h1>Dev-C++ 编译运行速查卡</h1>
+<p class="subtitle">针对本机实测环境：Dev-C++ 5.11 · TDM-GCC 4.9.2 (64-bit) · 英文界面</p>
+
+<div class="note">
+  <span class="note-title">这张卡的来源</span>
+  下面的快捷键不是网上的二手说法，是从本机 Dev-C++ 自带的帮助文件
+  Dev-C++ 自带帮助 <code class="path">Help\Subjects\Compiling.htm</code> 里的默认值。
+  你随时可以自己打开那个文件核对。
+</div>
+
+<div class="cheat">
+
+  <div>
+    <h3>键盘</h3>
+    <ul>
+      <li><kbd>Ctrl</kbd>+<kbd>N</kbd> — 新建源文件</li>
+      <li><kbd>Ctrl</kbd>+<kbd>O</kbd> — 打开文件</li>
+      <li><kbd>Ctrl</kbd>+<kbd>S</kbd> — 保存</li>
+      <li><kbd>F9</kbd> — <strong>编译</strong>（只编译，不运行）</li>
+      <li><kbd>F10</kbd> — <strong>运行</strong>（运行上次编译出的 .exe）</li>
+      <li><kbd>F11</kbd> — <strong>编译并运行</strong>（最常用）</li>
+      <li><kbd>F12</kbd> — 全部重建（改了 .h 文件后用）</li>
+    </ul>
+
+    <h3>界面语言改成中文</h3>
+    <p style="font-size:.92rem">
+      当前界面是英文。要改：<code>Tools → Environment Options → General</code>，
+      把 <code>Language</code> 改成 <code>Chinese.lng</code>。
+      <br><span style="color:var(--ink-faint)">建议先别改——英文界面下搜报错信息更容易搜到答案。</span>
+    </p>
+
+    <h3>新建文件的正确流程</h3>
+    <ol style="padding-left:1.2rem;font-size:.94rem">
+      <li><code>File → New → Source File</code></li>
+      <li>敲代码</li>
+      <li><code>File → Save As</code>，后缀写 <strong><code>.cpp</code></strong></li>
+      <li><kbd>F11</kbd></li>
+    </ol>
+  </div>
+
+  <div>
+    <h3>最小可用程序骨架</h3>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    std::cout &lt;&lt; "内容" &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+
+    <h3>四段结构各自在干嘛</h3>
+    <ul style="font-size:.94rem">
+      <li><code>#include &lt;iostream&gt;</code> — 借输入输出工具箱</li>
+      <li><code>int main()</code> — 程序入口，从这里开始跑</li>
+      <li><code>std::cout &lt;&lt; ...</code> — 把内容送到屏幕上</li>
+      <li><code>return 0;</code> — 报告正常结束</li>
+    </ul>
+
+    <h3>报错速查</h3>
+    <table style="font-size:.86rem">
+      <tbody>
+        <tr>
+          <td><code>cout was not declared</code></td>
+          <td>漏了 <code>#include &lt;iostream&gt;</code> 或 <code>std::</code></td>
+        </tr>
+        <tr>
+          <td><code>end1 was not declared</code></td>
+          <td><code>endl</code> 的字母 l 打成数字 1</td>
+        </tr>
+        <tr>
+          <td><code>_main</code> 找不到</td>
+          <td><code>int main()</code> 漏写或拼错</td>
+        </tr>
+        <tr>
+          <td><code>cannot open output file</code></td>
+          <td>上次的黑窗口还开着，关掉再编译</td>
+        </tr>
+        <tr>
+          <td>中文变乱码</td>
+          <td>编码问题，先只用英文输出</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<hr>
+
+<h3>本机环境事实（省得以后再查一遍）</h3>
+<table>
+  <tbody>
+    <tr><td>IDE</td><td class="path">本机安装的 Dev-C++</td></tr>
+    <tr><td>真正的编译器</td><td class="path">MinGW64\bin\g++.exe（示例环境 TDM-GCC 4.9.2，64 位）</td></tr>
+    <tr><td>Dev-C++ 自带帮助</td><td class="path">Help\index.htm</td></tr>
+    <tr><td>个人设置文件</td><td class="path">%APPDATA%\Dev-Cpp\devcpp.ini</td></tr>
+    <tr><td>防止窗口闪退的组件</td><td class="path">Dev-C++ 自带的 ConsolePauser.exe</td></tr>
+    <tr><td>默认语言标准</td><td>gnu++98 —— 4.9.2 的默认值，<strong>不是</strong> C++11</td></tr>
+  </tbody>
+</table>
+
+<div class="trap">
+  <span class="trap-title">两个别做的动作</span>
+  <ul style="margin-bottom:0">
+    <li>不要加 <code>system("pause");</code> —— Dev-C++ 自带 ConsolePauser，不需要它。</li>
+    <li>不要把源文件保存成 <code>.c</code> —— 那样 Dev-C++ 会按 C 语言编译，你的 C++ 代码会报一堆错。</li>
+  </ul>
+</div>
+
+<div class="lesson-footer">
+  <div class="nav">
+    <a href="../lessons/0001-first-program.html">← 第 0001 课：让程序跑起来</a>
+    <span>下一课：0002 变量与输入</span>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,261 @@
+/* ==========================================================================
+   workbench.css — 学习工作台专用组件
+   依赖 course.css（字体、配色变量、table/code 基础样式都在那里）
+   ========================================================================== */
+
+/* ---------- 顶部状态条 ---------- */
+
+.wb-top {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(253, 252, 249, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rule);
+  margin: -4rem -1.5rem 2rem;
+  padding: 0.85rem 1.5rem;
+}
+.wb-top-inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+.wb-brand {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.02rem;
+}
+.wb-brand small {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.74rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+.wb-meter {
+  flex: 1 1 12rem;
+  min-width: 9rem;
+}
+.wb-meter-bar {
+  height: 6px;
+  background: #e8e3d9;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.wb-meter-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 3px;
+  transition: width 0.35s ease;
+}
+.wb-meter-label {
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+  margin-top: 0.28rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 顶部导航 ---------- */
+
+.wb-nav {
+  display: flex;
+  gap: 0.15rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+}
+.wb-nav a {
+  padding: 0.2rem 0.55rem;
+  border-radius: 3px;
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+.wb-nav a:hover { background: #efece4; color: var(--accent); }
+
+/* ---------- 卡片网格 ---------- */
+
+.wb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18.5rem, 1fr));
+  gap: 1.1rem;
+  margin: 1.6rem 0;
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 1rem 1.15rem 1.1rem;
+}
+.card.span-2 { grid-column: span 2; }
+@media (max-width: 760px) { .card.span-2 { grid-column: span 1; } }
+.card > h3 {
+  margin: 0 0 0.7rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 1.02rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+.card > h3 .count {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 400;
+  color: var(--ink-faint);
+}
+
+/* ---------- 状态标签 ---------- */
+
+.chip {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+.chip-done { background: #e6f0e9; color: var(--ok); }
+.chip-todo { background: #f6ece9; color: var(--bad); }
+.chip-now  { background: #eaeff4; color: var(--accent-2); }
+.chip-wait { background: #f2f0ea; color: var(--ink-faint); }
+
+/* ---------- 清单 ---------- */
+
+ul.wb-list { list-style: none; padding: 0; margin: 0; }
+ul.wb-list > li {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  padding: 0.42rem 0;
+  border-bottom: 1px dashed #eeeae1;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+ul.wb-list > li:last-child { border-bottom: 0; }
+ul.wb-list > li .txt { flex: 1; }
+
+/* 可勾选项 */
+label.wb-check {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed #eeeae1;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  cursor: pointer;
+  user-select: none;
+}
+label.wb-check:last-of-type { border-bottom: 0; }
+label.wb-check input {
+  margin: 0.28rem 0 0;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--ok);
+  flex: none;
+  cursor: pointer;
+}
+label.wb-check .txt { flex: 1; }
+label.wb-check input:checked + .txt { color: var(--ink-faint); }
+label.wb-check input:checked + .txt .t { text-decoration: line-through; }
+.sub { display: block; font-size: 0.8rem; color: var(--ink-faint); margin-top: 0.1rem; }
+
+/* ---------- 进阶条（课程进度） ---------- */
+
+.wb-track { display: flex; flex-direction: column; gap: 0.3rem; }
+.wb-track-row {
+  display: grid;
+  grid-template-columns: 1.1rem 3.4rem 1fr;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.86rem;
+  padding: 0.22rem 0;
+  cursor: pointer;
+}
+.wb-track-row input { margin: 0; width: 1rem; height: 1rem; accent-color: var(--ok); cursor: pointer; }
+.wb-track-row .no {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--ink-faint);
+  text-align: right;
+}
+.wb-track-row.is-now .no { color: var(--accent); font-weight: 700; }
+.wb-track-row.is-now { background: #fbf7f7; border-left: 3px solid var(--accent); margin-left: -0.75rem; padding-left: 0.6rem; }
+.wb-track-row.is-done { color: var(--ink-faint); }
+.wb-track-row.is-done .name::before { content: "✓ "; color: var(--ok); }
+
+/* ---------- 速查表（紧凑版） ---------- */
+
+.wb-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; margin: 0; }
+.wb-table th, .wb-table td { padding: 0.34rem 0.5rem; border-bottom: 1px solid var(--rule); text-align: left; }
+.wb-table th { font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-faint); }
+.wb-table code { font-size: 0.82rem; }
+
+/* ---------- 折叠块 ---------- */
+
+details.wb-fold {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.55rem 0.85rem;
+  margin: 0.6rem 0;
+  background: #fdfcf9;
+}
+details.wb-fold[open] { background: #fff; }
+details.wb-fold > summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.92rem;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+details.wb-fold > summary::-webkit-details-marker { display: none; }
+details.wb-fold > summary::after { content: "＋"; color: var(--ink-faint); font-weight: 400; }
+details.wb-fold[open] > summary::after { content: "－"; }
+details.wb-fold > *:not(summary) { margin-top: 0.7rem; }
+
+/* ---------- 过滤输入 ---------- */
+
+.wb-filter {
+  width: 100%;
+  font: inherit;
+  font-size: 0.88rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: #fdfcf9;
+  margin-bottom: 0.7rem;
+}
+.wb-filter:focus { outline: 2px solid #cfd9e2; outline-offset: -1px; background: #fff; }
+.wb-hidden { display: none !important; }
+
+/* ---------- 路径码 ---------- */
+
+.pathcode {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background: var(--code-bg);
+  padding: 0.08em 0.35em;
+  border-radius: 3px;
+  word-break: break-all;
+}
+
+/* ---------- 打印 ---------- */
+
+@media print {
+  .wb-top { position: static; margin: 0 0 1rem; backdrop-filter: none; background: none; }
+  .wb-nav, .wb-filter, .wb-meter { display: none; }
+  .wb-grid { display: block; }
+  .card { break-inside: avoid; page-break-inside: avoid; margin-bottom: 1rem; border: 1px solid #ccc; }
+  details.wb-fold { border: 0; padding-left: 0; }
+  details.wb-fold > summary::after { content: ""; }
+  details.wb-fold > *:not(summary) { display: block !important; }
+}

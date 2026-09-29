@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>学习工作台 · C语言程序设计</title>
+<link rel="stylesheet" href="assets/course.css">
+<link rel="stylesheet" href="assets/workbench.css">
+</head>
+<body>
+
+<!-- ================= 顶部状态条 ================= -->
+<div class="wb-top">
+  <div class="wb-top-inner">
+    <div class="wb-brand">
+      学习工作台
+      <small>C语言程序设计 · Dev-C++ 5.11 · 2026 秋</small>
+    </div>
+    <div class="wb-meter">
+      <div class="wb-meter-bar"><div class="wb-meter-fill"></div></div>
+      <div class="wb-meter-label">加载中…</div>
+    </div>
+    <nav class="wb-nav">
+      <a href="#today">今天</a>
+      <a href="#track">课程进度</a>
+      <a href="#hw">作业台</a>
+      <a href="#code">我的代码</a>
+      <a href="#pitfalls">坑清单</a>
+      <a href="#cheat">速查</a>
+      <a href="#ref">资源</a>
+      <a href="#" class="wb-reset" title="清空所有勾选">重置</a>
+    </nav>
+  </div>
+</div>
+
+<h1>我的 C 语言学习工作台</h1>
+<p class="subtitle">一屏掌握：学到哪、作业交到哪、踩过哪些坑、随手要查的东西</p>
+
+<!-- ================= 今天该做什么 ================= -->
+<div class="card span-2" id="today" style="border-top:3px solid var(--accent);">
+  <h3>今天该做什么</h3>
+  <div class="wb-grid" style="margin:0;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));">
+    <div>
+      <p style="margin:0 0 .3rem"><span class="chip chip-now">进行中</span> <strong>chap02 §2.5 函数</strong></p>
+      <p style="margin:0;font-size:.9rem;color:var(--ink-soft)">
+        把「例 2-11 生成阶乘表」在 Dev-C++ 里完整敲一遍，输入 <code>3</code>，
+        确认输出 <code>0!=1 / 1!=1 / 2!=2 / 3!=6</code>。
+      </p>
+    </div>
+    <div>
+      <p style="margin:0 0 .3rem"><span class="chip chip-todo">待改</span> <strong>作业④ 三位数各位之和</strong></p>
+      <p style="margin:0;font-size:.9rem;color:var(--ink-soft)">
+        算法已经写对了，只差两处：<code>scanf</code> 那行，以及输出的文字格式。
+        改法见下面<a href="#pitfalls">坑清单</a>第 1 条。
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 课程进度 ================= -->
+<h2 id="track">课程进度</h2>
+<p style="font-size:.9rem;color:var(--ink-soft)">
+  勾上你已经上过的章节 —— 数据存在你浏览器里，关掉也还在。
+  <span class="pathcode">公开版不附带课件原件</span>
+</p>
+<div class="card">
+  <div class="wb-track" id="track-list"></div>
+</div>
+
+<!-- ================= 作业台 ================= -->
+<h2 id="hw">作业台</h2>
+<div class="wb-grid">
+
+  <div class="card">
+    <h3>已布置的作业 <span class="count"></span></h3>
+
+    <label class="wb-check">
+      <input type="checkbox" class="wb-cb" data-id="hw1">
+      <span class="txt">
+        <span class="t"><strong>作业①</strong> 字母大小写转换</span>
+        <span class="sub">
+          ✅ 已完成 · <code>Untitled4.cpp</code> · 用你的编译器实测 <code>A→a</code> <code>M→m</code> <code>Z→z</code> 全对。
+          <br>💡 但用了魔数 <code>+32</code>；老师 chap06 第 33 页的标准写法是 <code>ch - 'A' + 'a'</code>（自解释）。
+        </span>
+      </span>
+    </label>
+
+    <label class="wb-check">
+      <input type="checkbox" class="wb-cb" data-id="hw2">
+      <span class="txt">
+        <span class="t"><strong>作业②</strong> —</span>
+        <span class="sub">还没发给我</span>
+      </span>
+    </label>
+
+    <label class="wb-check">
+      <input type="checkbox" class="wb-cb" data-id="hw3">
+      <span class="txt">
+        <span class="t"><strong>作业③</strong> —</span>
+        <span class="sub">还没发给我</span>
+      </span>
+    </label>
+
+    <label class="wb-check">
+      <input type="checkbox" class="wb-cb" data-id="hw4">
+      <span class="txt">
+        <span class="t"><strong>作业④</strong> 计算三位数各位数字之和</span>
+        <span class="sub">
+          ⏳ 算法已写对（<code>b=8, c=5, m=3, d=16</code>），但输入输出两处有 bug。
+          用你编译器实测：输入 <code>358</code> 输出 <code>is:0</code> ❌
+        </span>
+      </span>
+    </label>
+  </div>
+
+  <div class="card">
+    <h3>我的掌握情况 <span class="count"></span></h3>
+
+    <label class="wb-check"><input type="checkbox" class="wb-cb" data-id="sk1">
+      <span class="txt"><span class="t">printf / scanf 基本用法</span>
+      <span class="sub">chap02 §2.2.4 / §2.3.4</span></span></label>
+
+    <label class="wb-check"><input type="checkbox" class="wb-cb" data-id="sk2">
+      <span class="txt"><span class="t">变量与数据类型 int / float / double / char</span>
+      <span class="sub">chap02 §2.2.2 · chap06 §6.1</span></span></label>
+
+    <label class="wb-check"><input type="checkbox" class="wb-cb" data-id="sk3">
+      <span class="txt"><span class="t">格式控制符与类型严格对应</span>
+      <span class="sub">⚠️ 你的薄弱点 —— 踩过 <code>%If</code> 的坑</span></span></label>
+
+    <label class="wb-check"><input type="checkbox" class="wb-cb" data-id="sk4">
+      <span class="txt"><span class="t">算术运算符 <code>+ - * / %</code> 与整数除法陷阱</span>
+      <span class="sub">chap02 §2.2.3</span></span></label>
+
+    <label class="wb-check"><input type="checkbox" class="wb-cb" data-id="sk5">
+      <span class="txt"><span class="t">if-else 与关系运算符</span>
+      <span class="sub">chap02 §2.3 · chap03</span></span></label>
+
+    <label class="wb-check"><input type="checkbox" class="wb-cb" data-id="sk6">
+      <span class="txt"><span class="t">for 循环</span>
+      <span class="sub">chap02 §2.4 · 你写过 <code>math.cpp</code> 求 1+2+…+100 ✅</span></span></label>
+
+    <label class="wb-check"><input type="checkbox" class="wb-cb" data-id="sk7">
+      <span class="txt"><span class="t">函数：声明 / 调用 / 定义</span>
+      <span class="sub">chap02 §2.5 ← 正在学</span></span></label>
+
+    <label class="wb-check"><input type="checkbox" class="wb-cb" data-id="sk8">
+      <span class="txt"><span class="t">字符型与 ASCII 运算</span>
+      <span class="sub">chap06 · 你已经会写，但 32 从哪来还没确认</span></span></label>
+  </div>
+
+</div>
+
+<!-- ================= 我的代码 ================= -->
+<h2 id="code">我的代码档案</h2>
+<p style="font-size:.9rem;color:var(--ink-soft)">
+  这是你 9 月中在桌面写的练习文件，每一个我都用你本机的 g++ 编译跑过。
+  <span class="chip chip-wait">文件已清理</span>
+  <span style="color:var(--ink-faint)">（桌面上的 .cpp 后来被清掉了，这张表保留作水平记录。）</span>
+</p>
+<div class="card">
+<table class="wb-table">
+  <thead>
+    <tr><th>文件</th><th>干什么</th><th>实测结果</th><th>状态</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>Untitled1.cpp</code></td><td>Hello World</td><td>正常输出</td><td><span class="chip chip-done">通过</span></td></tr>
+    <tr><td><code>Untitled12.cpp</code></td><td>两个整数求和</td><td>逻辑正确</td><td><span class="chip chip-done">通过</span></td></tr>
+    <tr><td><code>math.cpp</code></td><td>for 循环求 1+2+…+100</td><td>输出 5050 ✅</td><td><span class="chip chip-done">通过</span></td></tr>
+    <tr><td><code>Untitled5.cpp</code></td><td>三个 double 求平均</td><td>基本正确；<code>3.0</code> 是好习惯</td><td><span class="chip chip-done">通过</span></td></tr>
+    <tr><td><code>Untitled4.cpp</code></td><td>字母大小写转换（作业①）</td><td><code>A→a M→m Z→z</code> 全对</td><td><span class="chip chip-done">通过</span></td></tr>
+    <tr>
+      <td><code>Untitled3.cpp</code></td><td>读一个 double 再打印</td>
+      <td><code>scanf("%If",&amp;x)</code> —— 大写 I 不是小写 L；输入 9.5 实际输出 <code>0.000000</code></td>
+      <td><span class="chip chip-todo">有 bug</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ================= 坑清单 ================= -->
+<h2 id="pitfalls">顽固坑清单</h2>
+<p style="font-size:.9rem;color:var(--ink-soft)">
+  每一条都是你或你老师课件里真实出现过的。忘了怎么写的时候来这查。
+</p>
+<div class="card">
+  <input class="wb-filter" type="search" data-target="#pitfalls" placeholder="输入关键词筛选，例如：scanf、除法、函数…">
+  <table class="wb-table">
+    <thead>
+      <tr><th style="width:30%">症状 / 报错</th><th style="width:32%">原因</th><th>正确写法</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>输入 <code>358</code> 却输出 <code>0</code></td>
+        <td><code>scanf</code> 的格式串里写了普通字符，用户必须原样敲进去才行</td>
+        <td>提示用 <code>printf</code>；<code>scanf</code> 里只留 <code>%d</code><br><code>printf("please input data:\n");</code><br><code>scanf("%d", &amp;a);</code><br>📖 课件 chap02 第 34 页：「尽量不要出现普通字符」</td>
+      </tr>
+      <tr>
+        <td>输入 <code>9.5</code> 输出 <code>0.000000</code></td>
+        <td>写成了 <code>%If</code>（<strong>大写 I</strong>），不是 <code>%lf</code>（<strong>小写 L</strong>）。这两个字母在很多字体里长得一样</td>
+        <td><code>scanf("%lf", &amp;x);</code><br>编译器会警告：<code>use of 'I' length modifier with 'f' type character</code></td>
+      </tr>
+      <tr>
+        <td><code>1/2</code> 得到 <code>0</code></td>
+        <td>整数除整数，小数被直接砍掉（不是四舍五入）</td>
+        <td>让一边带小数：<code>5.0/9</code> 或 <code>5/9.0</code><br>实测：<code>5*(100-32)/9 = 37</code>，但 <code>5/9*(100-32) = 0</code></td>
+      </tr>
+      <tr>
+        <td><code>5.0 % 2</code> 编译报错</td>
+        <td><code>%</code> 求余只能用于整型</td>
+        <td>求余只用整数；5%6=5，9%4=1，100%4=0</td>
+      </tr>
+      <tr>
+        <td>阶乘算出来全是 <code>0</code></td>
+        <td>累乘的初值写成了 0</td>
+        <td><strong>累加初值 0，累乘初值 1</strong><br><code>sum = 0;</code> / <code>product = 1;</code></td>
+      </tr>
+      <tr>
+        <td><code>error: 'fact' was not declared in this scope</code></td>
+        <td>用了自定义函数但忘了写声明；编译器是从上往下读的</td>
+        <td>在 <code>main</code> 前面加 <code>double fact (int n);</code><br>或者把整个函数定义搬到 <code>main</code> 前面</td>
+      </tr>
+      <tr>
+        <td>函数定义了却报一堆错</td>
+        <td>分号位置搞错</td>
+        <td><strong>声明末尾有 <code>;</code>，定义末尾绝对不能有 <code>;</code></strong></td>
+      </tr>
+      <tr>
+        <td>结果数字对，但评测判错</td>
+        <td>输出的文字、空格、换行和样例对不上</td>
+        <td>照样例<strong>一个字符都不差</strong>地抄。评测机常做严格比对</td>
+      </tr>
+      <tr>
+        <td><code>if (x = 5)</code> 条件永远成立</td>
+        <td><code>=</code> 是赋值，<code>==</code> 才是判断相等</td>
+        <td>判断相等一律写 <code>==</code>；<code>=</code> 的左边必须是变量</td>
+      </tr>
+      <tr>
+        <td>程序"卡住"不往下走</td>
+        <td>多半是 <code>scanf</code> 在等你输入，或者格式串要求你打特殊文字</td>
+        <td>看 <code>scanf</code> 的格式串里有没有普通字符；确认它要的输入格式</td>
+      </tr>
+      <tr>
+        <td>中文输出变乱码</td>
+        <td>Dev-C++ 5.11 默认按 ANSI(GBK) 存文件</td>
+        <td>现阶段先只用英文输出；中文单独处理</td>
+      </tr>
+      <tr>
+        <td><code>cannot open output file ... .exe</code></td>
+        <td>上一次运行的黑窗口还开着，exe 被占用</td>
+        <td>关掉那个黑窗口再编译</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="wb-noresult wb-hidden" style="color:var(--ink-faint);font-size:.9rem;margin:.6rem 0 0">没有匹配的条目。</p>
+</div>
+
+<!-- ================= 速查卡 ================= -->
+<h2 id="cheat">速查卡</h2>
+
+<details class="wb-fold" open>
+  <summary>格式控制符对照表（最容易错的地方）</summary>
+  <table class="wb-table">
+    <thead><tr><th>数据类型</th><th>printf / scanf 都用</th><th>例子</th></tr></thead>
+    <tbody>
+      <tr><td><code>int</code></td><td><code>%d</code></td><td><code>scanf("%d", &amp;n);</code></td></tr>
+      <tr><td><code>float</code></td><td><code>%f</code></td><td><code>printf("%f", x);</code></td></tr>
+      <tr><td><code>double</code></td><td><code>%lf</code> <span style="color:var(--bad)">← 是小写 L</span></td><td><code>scanf("%lf", &amp;x);</code></td></tr>
+      <tr><td><code>char</code></td><td><code>%c</code></td><td><code>scanf("%c", &amp;ch);</code></td></tr>
+      <tr><td>保留 n 位小数</td><td><code>%.2f</code> / <code>%.0f</code></td><td><code>printf("%.2lf", avg);</code></td></tr>
+    </tbody>
+  </table>
+  <div class="trap" style="margin:0">
+    <span class="trap-title">一句话记牢</span>
+    <strong>格式符写错，编译器不拦你，但结果是错的。</strong> 所以一定要开 <code>-Wall</code>。
+  </div>
+</details>
+
+<details class="wb-fold">
+  <summary>scanf 的三条铁律</summary>
+  <ol style="padding-left:1.3rem;font-size:.92rem;margin:0">
+    <li><strong>变量前面必须加 <code>&amp;</code></strong>（取地址符）—— <code>scanf("%d", &amp;a);</code><br>
+        <span style="color:var(--ink-faint)">漏了它，数据不知道往哪存，轻则乱码重则崩溃。</span></li>
+    <li><strong>格式串里不要写普通字符</strong> —— 写了就必须由用户原样敲进去。<br>
+        提示信息用 <code>printf</code>，不要塞进 <code>scanf</code>。</li>
+    <li><strong>格式符、个数、顺序必须和变量一一对应</strong> —— <code>scanf("%d%lf", &amp;a, &amp;x);</code></li>
+  </ol>
+</details>
+
+<details class="wb-fold">
+  <summary>运算符与优先级</summary>
+  <table class="wb-table">
+    <thead><tr><th>优先级</th><th>运算符</th><th>结合方向</th></tr></thead>
+    <tbody>
+      <tr><td>高</td><td>单目 <code>+ - ++ --</code></td><td>从右向左</td></tr>
+      <tr><td></td><td>双目 <code>* / %</code></td><td>从左向右</td></tr>
+      <tr><td>低</td><td>双目 <code>+ -</code></td><td>从左向右</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:.9rem;margin:.5rem 0 0">
+    实测：<code>-5 + 3%2</code> = <code>(-5) + (3%2)</code> = <strong>-4</strong>　·　
+    <code>3 * 5 % 3</code> = <code>(3*5) % 3</code> = <strong>0</strong>
+  </p>
+  <p style="font-size:.9rem;margin:.5rem 0 0;color:var(--ink-faint)">
+    后面还要学：关系 <code>&gt; &lt; &gt;= &lt;= == !=</code>（chap02 §2.3 / chap03）、
+    逻辑 <code>&amp;&amp; || !</code>（chap03）、条件 <code>?:</code>、逗号、位运算、<code>sizeof</code>（chap06）
+  </p>
+</details>
+
+<details class="wb-fold">
+  <summary>函数的三段式（chap02 §2.5）</summary>
+<pre style="margin:0"><code>double fact (int n);        /* ① 声明：告诉编译器有这么一个函数，末尾有分号 */
+
+int main (void)
+{
+    result = fact(i);       /* ② 调用：把 i 交给它，用 result 接住返回值 */
+    return 0;
+}
+
+double fact (int n)         /* ③ 定义：真正写它怎么算，末尾没有分号 */
+{
+    int i;  double product;
+    product = 1;                                     /* 累乘初值 1 */
+    for (i = 1; i &lt;= n; i++) { product = product * i; }
+    return product;         /* 把结果回送 */
+}</code></pre>
+  <table class="wb-table" style="margin-top:.7rem">
+    <thead><tr><th></th><th>声明</th><th>定义</th></tr></thead>
+    <tbody>
+      <tr><td>末尾分号</td><td><strong>必须有</strong></td><td><strong>绝不能有</strong></td></tr>
+      <tr><td>作用</td><td>只告诉编译器「有这么个东西」</td><td>写出真正怎么算</td></tr>
+      <tr><td>能不能省</td><td>能（把定义搬到 main 前就不用）</td><td>不能</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details class="wb-fold" open>
+  <summary>我机器上的两套编译环境（2026-09-21 装机实测）</summary>
+  <table class="wb-table">
+    <thead><tr><th></th><th>Dev-C++ 5.11（旧的，别卸）</th><th>小熊猫 C++ 3.4（新的，主力）</th></tr></thead>
+    <tbody>
+      <tr><td>IDE</td><td><span class="pathcode">本机 Dev-C++</span></td><td><span class="pathcode">本机小熊猫 C++</span></td></tr>
+      <tr><td>编译器</td><td><span class="pathcode">…\Dev-Cpp\MinGW64\bin\g++.exe</span><br>GCC <strong>4.9.2</strong>（2014）</td><td><span class="pathcode">…\RedPanda-CPP\mingw64\bin\g++.exe</span><br>MinGW-w64 <strong>11.5.0</strong></td></tr>
+      <tr><td>桌面快捷方式</td><td><code>Dev-C++.lnk</code></td><td><code>小熊猫C++.lnk</code></td></tr>
+      <tr><td>界面语言</td><td>英文（默认）</td><td>中文</td></tr>
+      <tr><td>快捷键</td><td colspan="2" style="text-align:center"><code>Ctrl+N</code> 新建　<code>F9</code> 编译　<code>F10</code> 运行　<strong><code>F11</code> 编译并运行</strong>　<code>F12</code> 全部重建</td></tr>
+    </tbody>
+  </table>
+  <div class="trap" style="margin:.7rem 0 0">
+    <span class="trap-title">命令行调用新编译器时的一个坑</span>
+    直接调 <code>…\RedPanda-CPP\mingw64\bin\g++.exe</code> 会 <strong>exit 1 且一个字都不输出</strong>。
+    原因：<code>g++.exe</code> 自己在该目录下所以能找到 DLL，但它调起的
+    <code>cc1plus.exe</code> 在 <code>libexec\gcc\…\</code> 下，
+    <strong>找不到 <code>libwinpthread-1.dll</code></strong> → Windows 报 <code>STATUS_DLL_NOT_FOUND</code>（退出码 <code>-1073741515</code>）。
+    <br><strong>解法</strong>：把 <code>…\mingw64\bin</code> 加进 <code>PATH</code> 再调。
+    在 IDE 里点 F11 不受影响（IDE 自己会设 PATH），只有命令行才需要管。
+  </div>
+</details>
+
+<details class="wb-fold">
+  <summary>Dev-C++ 快捷键与本机路径</summary>
+  <table class="wb-table">
+    <thead><tr><th>操作</th><th>快捷键</th></tr></thead>
+    <tbody>
+      <tr><td>新建源文件</td><td><code>Ctrl+N</code></td></tr>
+      <tr><td>保存</td><td><code>Ctrl+S</code></td></tr>
+      <tr><td>编译</td><td><code>F9</code></td></tr>
+      <tr><td>运行</td><td><code>F10</code></td></tr>
+      <tr><td><strong>编译并运行</strong></td><td><code>F11</code></td></tr>
+      <tr><td>全部重建</td><td><code>F12</code></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:.88rem;margin:.6rem 0 0">
+    IDE：<span class="pathcode">本机 Dev-C++</span><br>
+    真正的编译器：<span class="pathcode">随 Dev-C++ 安装的 g++.exe</span>（示例环境为 TDM-GCC 4.9.2 64位）<br>
+    开警告：<code>Tools → Compiler Options → Settings</code> 勾选
+    <code>Add the following commands when calling the compiler</code> 填 <code>-Wall</code><br>
+    完整速查卡：<a href="reference/devcpp-workflow.html">Dev-C++ 编译运行速查卡</a>
+  </p>
+</details>
+
+<!-- ================= 资源与课件 ================= -->
+<h2 id="ref">课件与资源</h2>
+
+<div class="wb-grid">
+  <div class="card span-2">
+    <h3>课程章节</h3>
+    <table class="wb-table">
+      <thead><tr><th>章</th><th>内容</th><th>PPT</th><th>文字版</th></tr></thead>
+      <tbody id="cw-list"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>一手资源（要更权威时用）</h3>
+    <ul class="wb-list">
+      <li><span class="txt">
+        <a href="https://zh.cppreference.com/w/c" target="_blank" rel="noopener">中文 cppreference — C 语言</a>
+        <span class="sub">查函数、语法定义的权威手册（是手册不是教程）</span>
+      </span></li>
+      <li><span class="txt">
+        <a href="https://en.cppreference.com/w/c/language/ascii" target="_blank" rel="noopener">ASCII 码表（cppreference）</a>
+        <span class="sub">查某个字符的编号；'A'=65、'a'=97，差 32</span>
+      </span></li>
+      <li><span class="txt">
+        <a href="https://www.runoob.com/cprogramming/c-tutorial.html" target="_blank" rel="noopener">菜鸟教程 C 语言</a>
+        <span class="sub">⚠️ 只当"快速回忆语法"用，不能当教材；权威性不如上面两个</span>
+      </span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>这个工作台怎么用</h3>
+    <ul class="wb-list">
+      <li><span class="txt"><strong>勾选</strong>会自动存进浏览器，关掉再开还在</span></li>
+      <li><span class="txt">右上角「重置」清空全部勾选</span></li>
+      <li><span class="txt">坑清单支持<strong>输入关键词筛选</strong></span></li>
+      <li><span class="txt"><code>Ctrl+P</code> 可以打印成 PDF 带走</span></li>
+      <li><span class="txt">内容过时了就直接跟我说，我来更新这一页</span></li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<p style="font-size:.86rem;color:var(--ink-faint)">
+  这个工作台整理了课程章节、作业进度和练习笔记。老师课件原文留在本机，公开版不附带。
+  页面里的练习说明来自本机编译验证，不包含课件文件。
+  <br>生成于 2026-09-18。
+</p>
+
+<script>
+/* 课程章节只展示名称。公开版不链接本机课件。 */
+(function () {
+  var chaps = [
+    ['chap00', '课程介绍', ''],
+    ['chap01', '引言', ''],
+    ['chap02', '用C语言编写程序', 'current'],
+    ['chap03', '分支结构', ''],
+    ['chap04', '循环结构', ''],
+    ['chap05', '函数', ''],
+    ['chap06', '回顾数据类型和表达式', ''],
+    ['chap07', '数组', ''],
+    ['chap08', '指针', ''],
+    ['chap09', '结构', ''],
+    ['chap10', '函数与程序结构', ''],
+    ['chap11', '指针进阶', ''],
+    ['chap12', '文件', '']
+  ];
+
+  /* ---- 侧栏课程进度 ---- */
+  var track = document.getElementById('track-list');
+  chaps.forEach(function (c) {
+    var row = document.createElement('label');
+    var isNow = c[2] === 'current';
+    row.className = 'wb-track-row' + (isNow ? ' is-now' : '');
+    row.innerHTML =
+      '<input type="checkbox" class="wb-cb" data-id="' + c[0] + '">' +
+      '<span class="no">' + c[0] + '</span>' +
+      '<span class="name">' + c[1] +
+      (isNow ? ' <span class="chip chip-now">正在学</span>' : '') + '</span>';
+    track.appendChild(row);
+  });
+
+  /* ---- 课件表格 ---- */
+  var SPECIAL = [
+    ['C语言常见错误', '常见错误汇编 · 33 页'],
+    ['Dev+C++安装使用说明', '环境安装 · 28 页'],
+    ['Dev+C++程序调试步骤', '调试入门 · 11 页']
+  ];
+  var tbody = document.getElementById('cw-list');
+
+  chaps.forEach(function (c) {
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td><code>' + c[0] + '</code></td>' +
+      '<td>' + c[1] + '</td>' +
+      '<td colspan="2">课件留在本机，公开版不附原文</td>';
+    tbody.appendChild(tr);
+  });
+
+  SPECIAL.forEach(function (s) {
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td>—</td>' +
+      '<td>' + s[1] + '</td>' +
+      '<td colspan="2">课件留在本机，公开版不附原文</td>';
+    tbody.appendChild(tr);
+  });
+})();
+</script>
+<script src="assets/workbench.js"></script>
+</body>
+</html>
